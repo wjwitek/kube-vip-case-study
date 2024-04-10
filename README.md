@@ -21,5 +21,4 @@ For the service load balancing, kube-vip takes more of a supporting role. It sti
 
 <a name="caseStudyConceptDescription"></a>
 ## 3. Case study concept description
-\includegraphics[scale=0.50]{fig/Diagram Śuu.png}
-\caption{Case study diagram}
+![Diagram Śuu](https://github.com/wjwitek/kube-vip-case-study/assets/74113640/0c923d4d-efd9-4ded-a6ce-e99b8a21e31c)
