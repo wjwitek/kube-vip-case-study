@@ -23,7 +23,8 @@ For the service load balancing, kube-vip takes more of a supporting role. It sti
 
 <a name="caseStudyConceptDescription"></a>
 ## 3. Case study concept description
-Our case study will explore two main features of Kube-vip: load balancing and Virtual IP. We will perform DDOS attack on a simple cluster connected to network and investigate how kube-vip's load balancer will perform. For VIP testing, we will perform simulation of emergency shut-down of selected control nodes to check how long it takes to recover server functionality. Diagram ![Diagram Śuu](https://github.com/wjwitek/kube-vip-case-study/assets/74113640/0c923d4d-efd9-4ded-a6ce-e99b8a21e31c) presents architecture of the case study concept.
+Our case study will explore two main features of Kube-vip: load balancing and Virtual IP. We will perform DDOS attack on a simple cluster connected to network and investigate how kube-vip's load balancer will perform. For VIP testing, we will perform simulation of emergency shut-down of selected control nodes to check how long it takes to recover server functionality. Diagram below presents architecture of the case study concept.
+![Diagram Śuu](https://github.com/wjwitek/kube-vip-case-study/assets/74113640/0c923d4d-efd9-4ded-a6ce-e99b8a21e31c)
 
 
 <a name="solutionArchitecture"></a>
