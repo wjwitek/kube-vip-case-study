@@ -28,8 +28,15 @@ For the service load balancing, kube-vip takes more of a supporting role. It sti
 <a name="solutionArchitecture"></a>
 ## 4. Solution architecture
 
+<a name="technologies"></a>
+## 5. Technologies
+- K3s - lightweight distribution of Kubernetes. 
+- Kube-vip - load balancing framework for Kubernetes cluster.
+- Docker - creating containers managed by Kubernetes
+- K3sup - tool for easier setup and further development of K3s clusters
+
 <a name="environmentConfiguration"></a>
-## 5. Environment configuration
+## 6. Environment configuration
 
 Kube-vip can be setup as a DeamonSet. To do this a manifest needs to be created. First, template needs to be copied from repository:
 ```console
