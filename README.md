@@ -21,6 +21,12 @@ Virtual IP (VIP) allows for ensuring that an endpoint is always available. Withi
 When kube-vip is configured to work as a load balancer for control plane it listens for API requests and than distributes them to multiple Kubernete's API servers across many nodes. This is done via TCP-based round-robin protocol on the kernel level (so before packets are sent to real TCP port).\\
 For the service load balancing, kube-vip takes more of a supporting role. It still requires external load controller, typically connected to the cluster via Cloud Controller. The kube-vip's role in this case is making the load balancer's endpoint visible to the rest of the cluster. For example if a load balancer is taking care of multiple copies of a backend service, kube-vip will advertise the VIP under which they are 'aggregated' to the frontend service in the same cluster.
 
+DOS (denial-of-service) attack is cyber-attack in which the perpetrator seeks to make a machine or network resource unavailable to its intended users by temporarily or indefinitely disrupting services of a host connected to a network. DDOS stands for distributed denial-of-service and it involves attacking via multiple hosts contrary to just one which makes it much harder to detect. Ideally, we would want service to quickly recognize the origin of fake requests and not accept them after recognizing a pattern (static IP address, attacked protocol, specific http request). We can broadly recognize 3 types of DDOS attacks:
+- Application Layer attacks - target the layer where web pages are generated on the server and delivered in response to HTTP requests. The basic attack is known as HTTP flood which is similar to pressing refresh in a web browser over and over on many different computers at once – large numbers of HTTP requests flood the server, resulting in denial-of-service.
+- Protocol attacks - also known as a state-exhaustion attacks, cause a service disruption by over-consuming server resources and/or the resources of network equipment like firewalls and load balancers by utilizeing weaknesses in layer 3 and layer 4 of the protocol stack to render the target inaccessible. Example of such could SYN Flood that exploits TCP handshake and force service to wait for final step in chandshake that never occurs.
+- Volumetric attacks - attempts to create congestion by consuming all available bandwidth between the target and the larger Internet.
+
+In this study we will explore load balancer capabilities against first two types of attacks.
 <a name="caseStudyConceptDescription"></a>
 ## 3. Case study concept description
 Our case study will explore two main features of Kube-vip: load balancing and Virtual IP. We will perform DDOS attack on a simple cluster connected to network and investigate how kube-vip's load balancer will perform. For VIP testing, we will perform simulation of emergency shut-down of selected control nodes to check how long it takes to recover server functionality. Diagram below presents architecture of the case study concept.
@@ -79,9 +85,5 @@ curl -sfL https://get.k3s.io | sh -s - --tls-san {chosen_vip}
 and replace ip with {chosen_vip} in config file `/etc/rancher/k3s/k3s.yaml`.
 
 <a name="ddosTest"></a>
-## 6. Environment configuration
-DOS (denial-of-service) attack is cyber-attack in which the perpetrator seeks to make a machine or network resource unavailable to its intended users by temporarily or indefinitely disrupting services of a host connected to a network. DDOS stands for distributed denial-of-service and it involves attacking via multiple hosts contrary to just one which makes it much harder to detect. Ideally, we would want service to quickly recognize the origin of fake requests and not accept them after recognizing a pattern (static IP address, attacked protocol, specific http request). We can broadly recognize 3 types of DDOS attacks:
-- Application Layer attacks - target the layer where web pages are generated on the server and delivered in response to HTTP requests. The basic attack is known as HTTP flood which is similar to pressing refresh in a web browser over and over on many different computers at once – large numbers of HTTP requests flood the server, resulting in denial-of-service.
-- Protocol attacks - also known as a state-exhaustion attacks, cause a service disruption by over-consuming server resources and/or the resources of network equipment like firewalls and load balancers by utilizeing weaknesses in layer 3 and layer 4 of the protocol stack to render the target inaccessible. Example of such could SYN Flood that exploits TCP handshake and force service to wait for final step in chandshake that never occurs.
-- Volumetric attacks - attempts to create congestion by consuming all available bandwidth between the target and the larger Internet.
-In this study we will explore first two types of attacks.
+## 6. DDOS Stress Test
+
