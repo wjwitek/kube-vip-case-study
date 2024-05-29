@@ -35,6 +35,7 @@ Our case study will explore two main features of Kube-vip: load balancing and Vi
 
 <a name="solutionArchitecture"></a>
 ## 4. Solution architecture
+Planned architecture includes 3 server nodes and two agent nodes. 
 
 <a name="technologies"></a>
 ## 5. Technologies
@@ -42,7 +43,8 @@ Our case study will explore two main features of Kube-vip: load balancing and Vi
 - Kube-vip - load balancing framework for Kubernetes cluster.
 - Docker - creating containers managed by Kubernetes
 - K3sup - tool for easier setup and further development of K3s clusters
-
+- HULK - Http Unbearable Load King - web server denial of service testing tool,
+- hping3 - network tool able to send custom ICMP/UDP/TCP packets and to display target replies. It will be used for more advanced DOS tests.
 <a name="environmentConfiguration"></a>
 ## 6. Environment configuration
 
