@@ -86,4 +86,15 @@ and replace ip with {chosen_vip} in config file `/etc/rancher/k3s/k3s.yaml`.
 
 <a name="ddosTest"></a>
 ## 6. DDOS Stress Test
+For Protocol Attack we will us Hping3 packet generator for SYN flooding with command:
+
+```console
+hping3 --flood -S -V --rand-source http://stv.com
+```
+
+For DDOS Layer 7 attack we will use python script known as HULK (Http Unbearable Load King) which generates unique requests based on the user agent/referrer strings. By requesting the HTTP server for no cache, the server presents a unique page for each request.
+
+```console
+python3 hulk.py http://<domain name>
+```
 
