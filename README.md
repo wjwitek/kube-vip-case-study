@@ -137,15 +137,14 @@ Now you should be able to use kubectl without the flag `--insecure-skip-tls-veri
 
 <a name="ddosTest"></a>
 ## 6. DDOS Stress Test
-For Protocol Attack we will us Hping3 packet generator for SYN flooding with command:
+For Protocol Attack we will use docker image of Hping3 packet generator image from dockerhub.
 
 ```console
-hping3 --flood -S -V --rand-source http://stv.com
+docker pull sflow/hping3
 ```
 
-For DDOS Layer 7 attack we will use python script known as HULK (Http Unbearable Load King) which generates unique requests based on the user agent/referrer strings. By requesting the HTTP server for no cache, the server presents a unique page for each request.
+We will carry out syn flood attack (-S flag) to our server (-p 80) by sending 10.000 packets of 120B size and randomizing our source to avoid detection:
 
 ```console
-python3 hulk.py http://<domain name>
+docker run --rm sflow/hping3 -c 10000 -d 120 -S -w 64 -p 80 --flood --rand-source <ip address>
 ```
-
