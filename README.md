@@ -146,5 +146,21 @@ docker pull sflow/hping3
 We will carry out syn flood attack (-S flag) to our server (-p 80) by sending 10.000 packets of 120B size and randomizing our source to avoid detection:
 
 ```console
-docker run --rm sflow/hping3 -c 10000 -d 120 -S -w 64 -p 80 --flood --rand-source <ip address>
+docker run --rm sflow/hping3 -c 10000 -d 120 -S -w 64 --rand-source <ip address>
 ```
+
+<a name="ddosTest"></a>
+## 8. DDOS Test Resoult
+The experiment was conducted by measuring avarage response time for http request. We wanted to see how low scale denial of service attack will increase response time.
+
+On cluster without configures Kube-vip we notice quite visible increase in response time (table below), but not exactly significant becouse of only one source of attack.
+| Standard response time  | DDOS response time |  % increase |
+| ------------- | ------------- | ---------- |
+| 0.00525  | 0.00573  | 9.1% |
+
+On cluster with configured Kube-vip we observe equal standard resopse time, but much bigger increase in reponse time during SYN flood attack.
+| Standard response time  | DDOS response time |  % increase |
+| ------------- | ------------- | ---------- |
+| 0.00538  | 0.00651  | 21.0% |
+
+We are not excatly sure why Kube-vip so drasticaly increase respond time during attack.
