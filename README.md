@@ -6,7 +6,7 @@
 2. [Theoretical background](#theoreticalBackground)
 3. [Case study concept description](#caseStudyConceptDescription)
 4. [Solution architecture](#solutionArchitecture)
-5. [Technologies][#technologies]
+5. [Technologies](#technologies)
 6. [Environment configuration](#environmentConfiguration)
 7. [Measuring response time](#measuringResponseTime)
 8. [DDOS Test Result](#ddosTest)
