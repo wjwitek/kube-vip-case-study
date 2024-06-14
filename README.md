@@ -6,9 +6,10 @@
 2. [Theoretical background](#theoreticalBackground)
 3. [Case study concept description](#caseStudyConceptDescription)
 4. [Solution architecture](#solutionArchitecture)
-5. [Environment configuration](#environmentConfiguration)
-6. [Measuring response time](#measuringResponseTime)
-7. [DDOS Test Result](#ddosTest)
+5. [Technologies][#technologies]
+6. [Environment configuration](#environmentConfiguration)
+7. [Measuring response time](#measuringResponseTime)
+8. [DDOS Test Result](#ddosTest)
 
 <a name="introduction"></a>
 ## 1. Introduction
@@ -41,10 +42,8 @@ Planned architecture includes 3 server nodes and two agent nodes.
 
 <a name="technologies"></a>
 ## 5. Technologies
-- K3s - lightweight distribution of Kubernetes. 
 - Kube-vip - load balancing framework for Kubernetes cluster.
 - Docker - creating containers managed by Kubernetes
-- K3sup - tool for easier setup and further development of K3s clusters
 - HULK - Http Unbearable Load King - web server denial of service testing tool,
 - hping3 - network tool able to send custom ICMP/UDP/TCP packets and to display target replies. It will be used for more advanced DOS tests.
 <a name="environmentConfiguration"></a>
@@ -138,7 +137,7 @@ kubeadm init phase upload-config kubeadm --config kubeadm.yaml
 Now you should be able to use kubectl without the flag `--insecure-skip-tls-verify`.
 
 <a name="ddosTest"></a>
-## 6. DDOS Stress Test
+## 7. DDOS Stress Test
 For Protocol Attack we will use docker image of Hping3 packet generator image from dockerhub.
 
 ```console
@@ -152,7 +151,7 @@ docker run --rm sflow/hping3 -c 10000 -d 120 -S -w 64 --rand-source <ip address>
 ```
 
 <a name="measuringResponseTime"></a>
-## 7. Measuring response time
+## 8. Measuring response time
 We prepared a script to measure average response time of cluster. Running it requires small changes, to allow proper authentication. First we need to add an
 appropriate role:
 1. Create role
@@ -186,7 +185,7 @@ python3 {api_url} {num_requests_per_batch} "Bearer {token}"
 ```
 
 <a name="ddosTest"></a>
-## 8. DDOS Test Result
+## 9. DDOS Test Result
 The experiment was conducted by measuring average response time for http request. We wanted to see how low scale denial of service attack will increase response time.
 The requests are done asynchronously in batches of 100 and 2000000 requests are done in total.
 
