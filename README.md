@@ -150,7 +150,7 @@ docker run --rm sflow/hping3 -c 10000 -d 120 -S -w 64 --rand-source <ip address>
 ```
 
 <a name="ddosTest"></a>
-## 8. DDOS Test Resoult
+## 8. DDOS Test Result
 The experiment was conducted by measuring avarage response time for http request. We wanted to see how low scale denial of service attack will increase response time.
 
 On cluster without configures Kube-vip we notice quite visible increase in response time (table below), but not exactly significant becouse of only one source of attack.
