@@ -7,6 +7,8 @@
 3. [Case study concept description](#caseStudyConceptDescription)
 4. [Solution architecture](#solutionArchitecture)
 5. [Environment configuration](#environmentConfiguration)
+6. [Measuring response time](#measuringResponseTime)
+7. [DDOS Test Result](#ddosTest)
 
 <a name="introduction"></a>
 ## 1. Introduction
@@ -149,18 +151,53 @@ We will carry out syn flood attack (-S flag) to our server (-p 80) by sending 10
 docker run --rm sflow/hping3 -c 10000 -d 120 -S -w 64 --rand-source <ip address>
 ```
 
-<a name="ddosTest"></a>
-## 8. DDOS Test Resoult
-The experiment was conducted by measuring avarage response time for http request. We wanted to see how low scale denial of service attack will increase response time.
+<a name="measuringResponseTime"></a>
+## 7. Measuring response time
+We prepared a script to measure average response time of cluster. Running it requires small changes, to allow proper authentication. First we need to add an
+appropriate role:
+1. Create role
+```console
+kubectl apply -f ./manifests/cluster-role.yaml
+```
+2. Create role binding
+```console
+kubectl create clusterrolebinding service-reader-pod --clusterrole=service-reader --serviceaccount=default:default
+```
+Then we need to generate a bearer token:
+1. Generate token
+```console
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+```
+2. Get the token
+```console
+kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode
+```
+To use the scrip type:
+```console
+python3 {api_url} {num_requests_per_batch} "Bearer {token}"
+```
 
-On cluster without configures Kube-vip we notice quite visible increase in response time (table below), but not exactly significant becouse of only one source of attack.
+<a name="ddosTest"></a>
+## 8. DDOS Test Result
+The experiment was conducted by measuring average response time for http request. We wanted to see how low scale denial of service attack will increase response time.
+The requests are done asynchronously in batches of 100 and 2000000 requests are done in total.
+
+On cluster without configures Kube-vip we notice quite visible increase in response time (table below), but not exactly significant because of only one source of attack.
 | Standard response time  | DDOS response time |  % increase |
 | ------------- | ------------- | ---------- |
 | 0.00525  | 0.00573  | 9.1% |
 
-On cluster with configured Kube-vip we observe equal standard resopse time, but much bigger increase in reponse time during SYN flood attack.
+On cluster with configured Kube-vip we observe equal standard resolve time, but much bigger increase in repose time during SYN flood attack.
 | Standard response time  | DDOS response time |  % increase |
 | ------------- | ------------- | ---------- |
 | 0.00538  | 0.00651  | 21.0% |
 
-We are not excatly sure why Kube-vip so drasticaly increase respond time during attack.
+We are not exactly sure why Kube-vip so drastically increase respond time during attack.
