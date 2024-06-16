@@ -10,6 +10,7 @@
 6. [Environment configuration](#environmentConfiguration)
 7. [Measuring response time](#measuringResponseTime)
 8. [DDOS Test Result](#ddosTest)
+9. [Bibliography](#bibliography)
 
 <a name="introduction"></a>
 ## 1. Introduction
@@ -200,3 +201,9 @@ On cluster with configured Kube-vip we observe equal standard resolve time, but 
 | 0.00538  | 0.00651  | 21.0% |
 
 We are not exactly sure why Kube-vip so drastically increase respond time during attack.
+
+<a name="bibliography"></a>
+## 10. Bibliography
+1. The Linux Foundation. Dokumentacja kube-vip. https://kube-vip.io/
+2. CNCF. Dokumentacja Kubernetes. https://kubernetes.io/
+3. The Kubernetes Authors. Dokumentacja kind. https://kind.sigs.k8s.io/
